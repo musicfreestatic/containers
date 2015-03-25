@@ -1,0 +1,22 @@
+from ubuntu
+maintainer Randall Smith <perlstalker@gmail.com>
+
+RUN apt-get update
+RUN apt-get install -y ruby ruby-dev rbenv gems nodejs python build-essential git ssh-client rsync wget
+RUN gem install org-ruby ruby-oembed stringex
+
+ENV BASEDIR /octopress
+RUN mkdir /octopress
+WORKDIR /octopress
+
+ADD install_octopress.sh /usr/local/sbin/
+
+#RUN /usr/local/sbin/install_octopress.sh
+
+ADD Gemfile /opt/
+ADD Rakefile /opt/
+
+EXPOSE 4000
+
+ENTRYPOINT git pull && rake generate && rake deploy
+#docker run -it --name mfs -v octopress:/octopress -p 4000:4000 mfs
