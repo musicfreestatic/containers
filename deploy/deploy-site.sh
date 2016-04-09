@@ -25,6 +25,6 @@ else
     if [ -r "_deploy.yml" ]; then
 	octopress deploy
     else
-	jekyll build --destination $dest --incremental
+	jekyll build --destination $dest
     fi
 fi
